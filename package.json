@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "test": "mocha -r ts-node/register test.ts"
+  },
+  "devDependencies": {
+    "jsdom": "^16.0.1",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^7.0.1"
+  }
+}
