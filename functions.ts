@@ -1,3 +1,5 @@
+import jquery = require('jquery');
+
 export var myMath = {
   mult: function (num1:number, num2:number):number {
     if (objSkip.skipFunc())   return num1 * num2;
@@ -50,4 +52,12 @@ export function reverseStr(str:string):string {
   }
 
   return result;
+}
+
+export function requestFunc(name:string, callback:()=>void):void {
+  jquery.ajax({
+    url:'this/'+name+'/lll',
+    succsess: console.log(13123)
+  });
+  console.log('ererer');
 }

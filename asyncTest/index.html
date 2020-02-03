@@ -4,11 +4,24 @@
     <meta charset="utf-8">
     <title></title>
 
+    <link rel="stylesheet" href="/home/administrator/work/node_modules/mocha/mocha.css">
   </head>
   <body>
+        <script src="app.js"></script>
     <div id="test">
 
     </div>
-    <script src="app.js"></script>
+    <div id="mocha"></div>
+<script src="/home/administrator/work/node_modules/mocha/mocha.js"></script>
+<script src="/home/administrator/work/node_modules/sinon/pkg/sinon.js"></script>
+<script src="/home/administrator/work/node_modules/chai/chai.js"></script>
+
+<script>mocha.setup('bdd')</script>
+
+<script src="browserTests.js" charset="utf-8"></script>
+
+<script>
+  mocha.run();
+</script>
   </body>
 </html>
