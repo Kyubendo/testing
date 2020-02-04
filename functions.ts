@@ -1,5 +1,36 @@
 import jquery = require('jquery');
 
+
+import { JSDOM } from 'jsdom';
+const { window } = new JSDOM('<!doctype html><html><body></body></html>');
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+       document: Document;
+       window: Window;
+       navigator: Navigator;
+    }
+  }
+}
+global.document = window.document;
+global.window = window;
+
+export const $ = jquery(global.window);
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+       document: Document;
+       window: Window;
+       navigator: Navigator;
+    }
+  }
+}
+global.document = window.document;
+global.window = window;
+
+
 export var myMath = {
   mult: function (num1:number, num2:number):number {
     if (objSkip.skipFunc())   return num1 * num2;
@@ -55,9 +86,10 @@ export function reverseStr(str:string):string {
 }
 
 export function requestFunc(name:string, callback:()=>void):void {
-  jquery.ajax({
-    url:'this/'+name+'/lll',
-    succsess: console.log(13123)
+  $.ajax({
+    url: 'this/'+name+'/lll',
+    succsess: callback
   });
-  console.log('ererer');
+  callback();
+  console.log('requestFunc working');
 }

@@ -6,6 +6,7 @@ function loadScript(src, callback) {
   document.head.append(script);
 }
 
+
 loadScript('script.js', scrName => {
   changeDiv(scrName);
   loadScript('script2.js', scrName => {
@@ -21,6 +22,7 @@ function loadScriptPr(src) {
     document.head.append(script);
   });
 }
+
 
 loadScriptPr('script.js')
   .then(scrName => {changeDiv(scrName);

@@ -1,12 +1,28 @@
 import sinon = require('sinon');
 import assert = require('assert');
-import jquery = require('jquery');
+
 import 'mocha';
 
-
-
 import * as funcs from './functions';
-import * as appF from './asyncTest/app';
+//import * as appF from './asyncTest/app';
+import {appF} from './asyncTest/app.js';
+
+import { JSDOM } from 'jsdom';
+const { window } = new JSDOM('<!doctype html><html><body<div id="test"></div>></body></html>');
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      ocument: Document;
+      indow: Window;
+      avigator: Navigator;
+    }
+  }
+}
+global.document = window.document;
+global.window = window;
+
+//const $ = jquery(global.window);
 
 
 
@@ -76,25 +92,25 @@ describe('pow function', function() {
 
 
 
-describe('should return NaN', function(){
-  var nanIn: any[] = ['hello', '', '###', '4+2'];
+    describe('should return NaN', function () {
+      var nanIn: any[] = ['hello', '', '###', '4+2'];
 
-  nanIn.forEach((input) => {
-    it(`${input} return NaN`, function() {
-      assert.equal(isNaN(funcs.pow(3, input)), true)
+      nanIn.forEach((input) => {
+        it(`${input} return NaN`, function() {
+          assert.equal(isNaN(funcs.pow(3, input)), true)
+        });
+      }
+      );
+
+      var ex = [0, -3, 2.4, -6.7];
+      ex.forEach((num) => {
+
+        it(`2 to the power of ${num} return NaN`, function() {
+
+          assert.equal(isNaN(funcs.pow(2, num)), true);
+        });
+      });
     });
-  }
-  );
-
-  var ex = [0, -3, 2.4, -6.7];
-  ex.forEach((num) => {
-
-    it(`2 to the power of ${num} return NaN`, function() {
-
-      assert.equal(isNaN(funcs.pow(2, num)), true);
-    });
-  });
-});
 
 });
 
@@ -141,22 +157,21 @@ describe("mock testing", function() {
   });
 });
 
-describe('reverse function', function(){
-  it('hello returns olleh', function(){
+describe('reverse function', function()  {
+  it('hello returns olleh', function()  {
     assert.equal(funcs.reverseStr('hello'), 'olleh');
   });
-  it('throws error if input is not a string', function(){
-    var num:any = 5;
-    assert.throws(function(){funcs.reverseStr(num)}, Error);
+  it('throws error if input is not a string', function()  {
+    var num:  any = 5;
+    assert.throws(function()   { funcs.reverseStr(num) }, Error);
   });
 });
 
-describe('fake request', function(){
-  it('request called with ... arguments', function(){
-    console.log( jquery().jquery)
-    funcs.requestFunc('nAmE', funcs.func);
-    sinon.replace(jquery, 'ajax', sinon.fake());
-    funcs.requestFunc('nAmE', sinon.fake());
-    assert(jquery.ajax.calledWithMatch({url: 'qwe/nAmE/lll'}));
+describe('fake request', function()  {
+  it('request url', function()  {
+    var stubAjax:sinon.SinonStub = sinon.stub(funcs.$, "ajax");
+
+    funcs.requestFunc('nAmE', sinon.spy());
+    assert(stubAjax.calledWithMatch({url: 'this/nAmE/lll'}));
   });
 });
