@@ -1,3 +1,14 @@
+export {
+  myMath,
+  objSkip,
+  pow,
+  func,
+  callFun,
+  reverseStr,
+  requestFunc,
+  $
+}
+
 import jquery = require('jquery');
 
 
@@ -16,7 +27,7 @@ declare global {
 global.document = window.document;
 global.window = window;
 
-export const $ = jquery(global.window);
+const $ = jquery(global.window);
 
 declare global {
   namespace NodeJS {
@@ -30,14 +41,13 @@ declare global {
 global.document = window.document;
 global.window = window;
 
-
-export var myMath = {
+var myMath = {
   mult: function (num1:number, num2:number):number {
     if (objSkip.skipFunc())   return num1 * num2;
   }
 }
 
-export var objSkip = {
+var objSkip = {
   skipFunc: function():boolean {
       console.log("skipFunc working");
       return false;
@@ -45,7 +55,7 @@ export var objSkip = {
 }
 
 
-export function pow(x:number, n:number):number {
+function pow(x:number, n:number):number {
   if (n <= 0) return NaN;
   if (Math.round(n) !=n) return NaN;
   var result = 1;
@@ -63,19 +73,19 @@ export function pow(x:number, n:number):number {
   return result;
 }
 
-export function func():void{
+function func():void{
   console.log("test");
 }
 
 
-export function callFun( func:()=>void ):void {
+function callFun( func:()=>void ):void {
   if (objSkip.skipFunc()) {
     func();
   }
 }
 
 
-export function reverseStr(str:string):string {
+function reverseStr(str:string):string {
   if (typeof(str)!='string') throw new Error('this is not a string');
   var result:string = '';
   for (let i = str.length-1; i>=0; i--) {
@@ -85,7 +95,7 @@ export function reverseStr(str:string):string {
   return result;
 }
 
-export function requestFunc(name:string, callback:()=>void):void {
+function requestFunc(name:string, callback:()=>void):void {
   $.ajax({
     url: 'this/'+name+'/lll',
     succsess: callback

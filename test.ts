@@ -5,7 +5,7 @@ import 'mocha';
 
 import * as funcs from './functions';
 //import * as appF from './asyncTest/app';
-import {appF} from './asyncTest/app.js';
+import appF from './asyncTest/app.js';
 
 import { JSDOM } from 'jsdom';
 const { window } = new JSDOM('<!doctype html><html><body<div id="test"></div>></body></html>');
@@ -171,7 +171,14 @@ describe('fake request', function()  {
   it('request url', function()  {
     var stubAjax:sinon.SinonStub = sinon.stub(funcs.$, "ajax");
 
-    funcs.requestFunc('nAmE', sinon.spy());
-    assert(stubAjax.calledWithMatch({url: 'this/nAmE/lll'}));
+    funcs.requestFunc('name', sinon.spy());
+    assert(stubAjax.calledWithMatch({url: 'this/name/lll'}));
+    stubAjax.restore();
   });
+  it('callback called once', function(){
+    var callback:sinon.SinonSpy = sinon.spy();
+    funcs.requestFunc('qqq', callback);
+    assert(callback.calledOnce);
+  });
+
 });

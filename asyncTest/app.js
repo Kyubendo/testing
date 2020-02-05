@@ -6,14 +6,6 @@ function loadScript(src, callback) {
   document.head.append(script);
 }
 
-
-loadScript('script.js', scrName => {
-  changeDiv(scrName);
-  loadScript('script2.js', scrName => {
-    changeDiv2(scrName);
-  });
-});
-
 function loadScriptPr(src) {
   return new Promise((resolve, reject) => {
     let script = document.createElement('script');
@@ -23,6 +15,19 @@ function loadScriptPr(src) {
   });
 }
 
+const loadScriptAA = async()=>{
+  let script = document.createElement('script');
+  script.src = src;
+  script.onload = await;
+  document.head.append(script);
+}
+
+loadScript('script.js', scrName => {
+  changeDiv(scrName);
+  loadScript('script2.js', scrName => {
+    changeDiv2(scrName);
+  });
+});
 
 loadScriptPr('script.js')
   .then(scrName => {changeDiv(scrName);
